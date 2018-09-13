@@ -9,6 +9,11 @@ $(function() {
   $("#botao-reiniciar").click(reiniciaJogo);
 });
 
+function atualizaTempoInicial(tempo) {
+  tempoInicial = tempo;
+  $("#tempo-digitacao").text(tempo);
+}
+
 function atualizaTamanhoFrase() {
   var frase = $(".frase").text();
   var numPalavras = frase.split(" ").length;
@@ -28,8 +33,8 @@ function inicializaContadores() {
 }
 
 function inicializaCronometro() {
-  var tempoRestante = $("#tempo-digitacao").text();
   campo.one("focus", function() {
+    var tempoRestante = $("#tempo-digitacao").text();
     var conometroId = setInterval(function(){
       tempoRestante--;
       $("#tempo-digitacao").text(tempoRestante);
@@ -38,23 +43,23 @@ function inicializaCronometro() {
         finalizaJogo();
       }
     },1000)
-})
+  })
 }
 
 function inicializaMarcadores() {
-var frase = $(".frase").text();
-campo.on("input", function() {
-  var digitado = campo.val();
-  var comparavel = frase.substr(0, digitado.length);
+  campo.on("input", function() {
+    var frase = $(".frase").text();
+    var digitado = campo.val();
+    var comparavel = frase.substr(0, digitado.length);
 
-  if (digitado == comparavel) {
-    campo.addClass("borda-verde");
-    campo.removeClass("borda-vermelha");
-  }else {
-    campo.addClass("borda-vermelha");
-    campo.removeClass("borda-verde");
-  }
-})
+    if (digitado == comparavel) {
+      campo.addClass("borda-verde");
+      campo.removeClass("borda-vermelha");
+    }else {
+      campo.addClass("borda-vermelha");
+      campo.removeClass("borda-verde");
+    }
+  })
 }
 
 function finalizaJogo() {
