@@ -5,6 +5,7 @@
     <title>Alura Typer</title>
     <link rel="stylesheet" href="css/libs/materialize.min.css">
     <link rel="stylesheet" href="css/libs/google-fonts.css">
+    <link rel="stylesheet" href="css/libs/selectize.default.css">
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
@@ -23,7 +24,7 @@
       </li>
       <li>
       <i class="small material-icons icones">query_builder</i>
-        <span id="tempo-digitacao">8</span> segundos.
+        <span id="tempo-digitacao">2</span> segundos.
       </li>
     </ul>
 
@@ -39,6 +40,20 @@
       </a>
       <a class="btn-floating btn-large waves-effect waves-light blue" id="botao-frase">
         <i class="material-icons">shuffle</i>
+      </a>
+      <a class="btn-floating btn-large waves-effect waves-light cyan" id="botao-frase-id">
+        <i class="material-icons">repeat_one</i>
+      </a>
+      <input type="number" id="frase-id" min="0">
+      <div class="select-usuarios">
+        <select id="usuarios">
+          <option value="Vinicius">Vinicius</option>
+          <option value="Rafaela">Rafaela</option>
+          <option value="Maria">Maria</option>
+        </select>
+      </div>
+      <a class="btn-floating btn-large waves-effect waves-light yellow" id="botao-sync">
+        <i class="material-icons">swap_vert</i>
       </a>
     </div>
 
@@ -67,5 +82,7 @@
     <script src="js/main.js"></script>
     <script src="js/frase.js"></script>
     <script src="js/placar.js"></script>
+    <script src="js/slider.js"></script>
+    <script src="js/selectize.js"></script>
 </body>
 </html>

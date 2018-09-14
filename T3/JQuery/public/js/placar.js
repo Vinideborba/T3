@@ -1,4 +1,41 @@
 $("#botao-placar").click(mostraPlacar);
+$("#botao-sync").click(sincronizaPlacar);
+
+function sincronizaPlacar(){
+    var placar = [];
+    var linhas = $("tbody>tr");
+
+    linhas.each(function(){
+        var usuario = $(this).find("td:nth-child(1)").text();
+        var palavras = $(this).find("td:nth-child(2)").text();
+
+        var score = {
+            usuario: usuario,
+            pontos: palavras
+        };
+
+        placar.push(score);
+
+    });
+
+    var dados = {
+        placar: placar
+    };
+
+    $.post("http://localhost:3000/placar", dados, function(){
+
+    });
+ }
+
+function atualizaPlacar() {
+    $.get("http://localhost:3000/placar",function(data){
+      $(data).each(function(){
+        var linha = novaLinha(this.usuario, this.pontos);
+        linha.find(".botao-remover").click(removeLinha);
+        $("tbody").append(linha);
+      });
+    });
+}
 
 function inserePlacar(){
   var corpoTabela = $(".placar").find("tbody");
@@ -47,7 +84,7 @@ function removeLinha() {
   event.preventDefault();
   var linha = $(this).parent().parent();
   linha.fadeOut();
-  setTimeOut(function() {
+  setTimeout(function(){
     linha.remove();
   },400)
 }
