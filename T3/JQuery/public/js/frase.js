@@ -30,7 +30,7 @@ function trocaFrase(data) {
 function fraseAleatoria() {
   $("#spinner").show();
 
-  $.get("http://localhost:3001/frases",trocaFraseAleatoria)
+  $.get("http://localhost:3000/frases",trocaFraseAleatoria)
   .fail(function() {
     $("#erro").toggle();
     setTimeout(function() {

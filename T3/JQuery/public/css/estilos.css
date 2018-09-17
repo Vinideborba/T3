@@ -50,10 +50,23 @@ body{
   float: right;
 }
 
+.slider {
+    height: auto;
+}
+
+.slick-prev:before, .slick-next:before{
+    color: black;
+}
+
 .select-usuarios{
   display: inline-block;
 }
 
 #usuarios{
-  display: inline-block;
+  display: block;
+}
+
+.selectize-input{
+  width: 150px;
+  vertical-align: middle;
 }
