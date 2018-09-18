@@ -1,85 +1,64 @@
-var criaJogo = function(sprite){
-    var etapa = 1;
-    var lacunas = [];
-    var palavraSecreta = "";
+const criaJogo = sprite => {
 
-    var ganhou = function () {
-        
-        return lacunas.length
+    let palavraSecreta = "";
+    let lacunas = [];
+    let etapa = 1;
+    
+    const ganhou = () => 
+    {
+        lacunas.length
             ? !lacunas.some(function(lacuna){
                 return lacuna == '';
             })
-        : false;
-    };
+            : false;
+    }
 
-    var perdeu = function () {
-        return sprite.isFinished();
-    };
+    const perdeu = () => sprite.isFinished();
+    const ganhouOuPerdeu = () => {ganhou() || perdeu();}
 
-    var ganhouOuPerdeu = function () {
-        return ganhou() || perdeu();
-    };
-
-    var reinicia = function () {
+    const reinicia = () => {
         etapa = 1;
         lacunas = [];
         palavraSecreta = '';
         sprite.reset();
     };
 
-    var processaChute = function (chute) {
-        
-        var exp = new RegExp(chute, 'gi'),
-            resultado,
+    const processaChute = chute => {
+        if (!chute.trim( )) throw Error("Chute em branco.");
+        const exp = new RegExp(chute, 'gi');
+        let resultado,
             acertou = false;
+        while(resultado = exp.exec(palavraSecreta)) acertou = lacunas[resultado.index] = chute;
+        if(!acertou) sprite.nextFrame();
+    };
 
-        while(resultado = exp.exec(palavraSecreta)) {
-            acertou = lacunas[resultado.index] = chute;
+    const criaLacunas = () => {
+        for(let i=0; i < palavraSecreta.length; i++){
+            lacunas.push('');
         }
-
-        if(!acertou) 
-        {
-            sprite.nextFrame();
-        }
+        // lacunas = Array(palavraSecreta.length).fill('');
     };
 
-    var criaLacunas = function(){
-        // for(var i=0; i < palavraSecreta.length; i++){
-        //     lacunas.push('');
-        // }
+    const proximaEtapa = () => etapa = 2;
 
-        lacunas = Array(palavraSecreta.length).fill('');
-    };
-
-    var proximaEtapa = function(){
-        etapa = 2;
-    }
-    
-    var setPalavraSecreta = function(palavra){
-        palavraSecreta = palavra;
-        criaLacunas();
-        proximaEtapa();
+    const setPalavraSecreta = palavra => {
+        if(!palavra.trim( )) throw Error("Palavra secreta inválida.");
+            palavraSecreta = palavra;
+            criaLacunas();
+            proximaEtapa();
 
     };
 
-    var getLacuna = function(){
-        
-        return lacunas;
-    };
-
-    var getEtapa = function () {
-        
-        return etapa;
-    };
-
+    const getLacunas = () => lacunas;
+    const getEtapa = () => etapa;
     return {
-        setPalavraSecreta: setPalavraSecreta,
-        getLacuna: getLacuna,
-        getEtapa: getEtapa,
-        processaChute: processaChute,
-        ganhou: ganhou,
-        perdeu: perdeu,
-        ganhouOuPerdeu: ganhouOuPerdeu, 
-        reinicia: reinicia
+        setPalavraSecreta,
+        getLacunas,
+        getEtapa,
+        processaChute,
+        ganhou,
+        perdeu,
+        ganhouOuPerdeu, 
+        reinicia
     };
 };
